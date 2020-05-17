@@ -5,11 +5,13 @@ from time import sleep
 from picamera import PiCamera
 import json
 
-camera = PiCamera()
 #url = "https://elecdesign.org.aalto.fi/tracker/api/"
-url = "http://localhost:3000/tracker/api/"
+#url = "http://localhost:3000/tracker/api/"
+url = "http://192.168.2.36:3000/tracker/api/"
 
-id = str(uuid.uuid1())
+camera = PiCamera()
+
+id = str(uuid.getnode())
  
 oldTime = time.time()
  
@@ -20,10 +22,7 @@ while True:
         response = requests.post(url, json={'uuid':id, 'c':1})
         print(response.text.encode('utf8'))
         if response.json()['msg'] == 'preview':
-            #camera.start_preview()
-            #sleep(5)
             camera.capture('./previews/{}.jpg'.format(id))
-            #camera.stop_preview()
             files = {'file':open('./previews/{}.jpg'.format(id),'rb')}
             response = requests.post(url, files=files)
             print(response.text.encode('utf8'))
