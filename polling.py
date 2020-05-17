@@ -2,7 +2,7 @@ import requests
 import uuid
 import time
 from time import sleep
-import picamera
+import picamera.PiCamera as camera
 import json
  
 #url = "https://elecdesign.org.aalto.fi/tracker/api/"
@@ -19,6 +19,6 @@ while True:
         response = requests.post(url, json={'uuid':id, 'c':1})
         print(response.text.encode('utf8'))
         if response.json()['msg'] == 'preview':
-            #take image here
+            camera.capture('/home/pi/previews/image.jpg')
             response = requests.post(url, json={'uuid':id, 'msg':'preview'})
             print(response.text.encode('utf8'))
