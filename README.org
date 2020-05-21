@@ -1,5 +1,3 @@
 #+TITLE: Visitor tracker device code
 
-* Overview
-
 This code is for a course where the goal was to design a visitor tracker.
